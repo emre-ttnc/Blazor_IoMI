@@ -1,0 +1,34 @@
+﻿@page "/"
+
+
+<PageTitle>Home Page</PageTitle>
+
+<strong>@Title</strong>
+
+<div class="d-flex justify-content-start">
+    <ButtonComponent Caption="Show Confirm Modal" Color="danger" Icon="create-outline" OnClick="ShowConfirmModal" IsOutline=false IsBusy=false />
+    <ButtonComponent Caption="Show Message Modal" Color="primary" Icon="chatbox-ellipses-outline" OnClick="ShowMessageModal" IsOutline=false IsBusy=false />
+</div>
+
+@code {
+
+    [CascadingParameter] IModalService Modal { get; set; } = default!;
+
+    [Inject] ModalManager modalManager { get; set; } = default!;
+
+    private string Title = "Home Page";
+
+    private async void ShowMessageModal() =>
+        await modalManager.ShowMessageModalAsync("Message Box", "This is a message for you!");
+
+    private async Task ShowConfirmModal() 
+    {
+        var res = await modalManager.ShowConfirmModalAsync("Attention!", "Are you sure?");
+
+        if (res)
+            Title = "Accepted";
+        else
+            Title = "Rejected";
+
+    }
+}

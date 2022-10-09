@@ -1,0 +1,17 @@
+﻿@inherits BaseModalComponent
+
+
+<h5 class="text-center">@Message</h5>
+
+<div class="d-flex justify-content-end mt-4">
+    <ButtonComponent Caption="@CancelText" Color="primary w-25" Icon="check" OnClick="@Canceled" />
+</div>
+
+@code {
+    public async override Task SetParametersAsync(ParameterView parameters)
+    {
+        Message = parameters.GetValueOrDefault<string>("Message") ?? "Message not found!";
+        CancelText = "O. K.";
+        await base.SetParametersAsync(parameters);
+    }
+}
