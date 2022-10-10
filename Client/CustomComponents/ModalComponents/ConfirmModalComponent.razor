@@ -3,17 +3,16 @@
 <div class="modal fade show d-block" tabindex="-1" role="dialog">
     <div class="modal-backdrop fade show" @onclick="Cancel"></div>
     <div class="modal-dialog" style="z-index: 1050">
-        <!-- Pop it above the backdrop -->
         <div class="modal-content">
-            <div class="modal-header bg-light">
+            <div class="modal-header bg-light p-2">
                 <h5 class="modal-title d-flex align-items-center"> <ion-icon class="fs-2 text-danger me-2" name="warning-outline"></ion-icon> Attention Please </h5>
-                <button type="button" class="btn-close" aria-label="Close" @onclick="Cancel">
+                <button type="button" class="btn-close me-0" aria-label="Close" @onclick="Cancel">
                 </button>
             </div>
             <div class="modal-body d-flex justify-content-center align-items-center">
                 <p class="m-0 fs-5 text-center">@Message</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer p-1">
                 <ButtonComponent Caption="@ConfirmText" Color="success" OnClick="@Accepted" Icon="checkmark-sharp" />
                 <ButtonComponent Caption="@CancelText" Color="danger" Icon="close-sharp" OnClick="@Canceled" IsOutline=true />
             </div>

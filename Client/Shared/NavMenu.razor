@@ -7,19 +7,55 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+<div class="@NavMenuCssClass">
+    @*    <nav class="flex-column">
+    <div class="nav-item px-3" @onclick="ToggleNavMenu">
+    <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+    <ion-icon class="fs-4 me-2" name="home-outline"></ion-icon> Home
+    </NavLink>
+    </div>
+    </nav>*@
+
+    <CollapsableComponent Title="Scales" Collapsed=true>
+        <CollapsableComponent Title="Scale Services" Collapsed=true>
             <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
-                <ion-icon class="fs-4 me-2" name="home-outline"></ion-icon> Home
+                <ion-icon class="fs-4 me-2" name="list-outline"></ion-icon> List of Services
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
+            <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="eye-outline"></ion-icon> Service Inspections
+            </NavLink>
+        </CollapsableComponent>
+        <CollapsableComponent Title="Scale Users" Collapsed=true>
+            <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="home-outline"></ion-icon> List of Scale Users
+            </NavLink>
             <NavLink class="nav-link d-flex align-items-center" href="fetchdata" Match="NavLinkMatch.All">
-                <ion-icon class="fs-4 me-2" name="analytics-outline"></ion-icon> Fetch data
+                <ion-icon class="fs-4 me-2" name="analytics-outline"></ion-icon> Scale Inspections
             </NavLink>
-        </div>
-    </nav>
+        </CollapsableComponent>
+    </CollapsableComponent>
+    <CollapsableComponent Title="Fuel Meters" Collapsed=true>
+        <NavLink class="nav-link d-flex align-items-center m-1" href="fetchdata" Match="NavLinkMatch.All">
+            <ion-icon class="fs-4 me-2" name="filter-outline"></ion-icon> List of Fuel Meters
+        </NavLink>
+        <CollapsableComponent Title="Fuel Meter Services" Collapsed=true>
+            <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="list-outline"></ion-icon> List of Fuel Meter Services
+            </NavLink>
+            <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="eye-outline"></ion-icon> Fuel Meter Service Inspections
+            </NavLink>
+        </CollapsableComponent>
+        <CollapsableComponent Title="Fuel Meter Users" Collapsed=true>
+            <NavLink class="nav-link d-flex align-items-center" href="" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="home-outline"></ion-icon> List of Fuel Meter Users
+            </NavLink>
+            <NavLink class="nav-link d-flex align-items-center" href="fetchdata" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="analytics-outline"></ion-icon> Fuel Meter Inspections
+            </NavLink>
+        </CollapsableComponent>
+    </CollapsableComponent>
+
 </div>
 
 @code {

@@ -8,11 +8,15 @@
 
 @if (forecasts == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="d-flex p-5 justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
 }
 else
 {
-    <table class="table">
+    <table class="table text-light">
         <thead>
             <tr>
                 <th>Date</th>

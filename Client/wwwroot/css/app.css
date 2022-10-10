@@ -1,4 +1,9 @@
-﻿html, body {
+﻿:root {
+    --bs-dark: #161F28;
+    --bs-dark-rgb: 22,31,40;
+}
+
+html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -9,6 +14,27 @@ h1:focus {
 a, .btn-link {
     color: #0071c1;
 }
+
+.collapse-header {
+    cursor: pointer;
+    color: rgba(var(--bs-light-rgb), .5) !important;
+}
+
+    .collapse-header:hover {
+        color: rgba(var(--bs-light-rgb), .8) !important;
+    }
+
+.nav-link {
+    color: var(--bs-gray) !important;
+}
+
+    .nav-link.active {
+        color: var(--bs-light) !important;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255,255,255,.01);
+    }
 
 .btn-primary {
     color: #fff;

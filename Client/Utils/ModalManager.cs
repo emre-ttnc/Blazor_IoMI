@@ -15,11 +15,13 @@ public class ModalManager
 
     public async Task ShowMessageModalAsync(string title, string message)
     {
+        ModalOptions options = new() { UseCustomLayout = true, AnimationType = ModalAnimationType.None };
+
         ModalParameters mParams = new()
         {
             { "Message", message }
         };
-        _ = await _modalService.Show<MessageModalComponent>(title, mParams).Result;
+        _ = await _modalService.Show<MessageModalComponent>(title, mParams, options).Result;
     }
 
     public async Task<bool> ShowConfirmModalAsync(string title, string message)
