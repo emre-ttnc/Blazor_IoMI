@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Inspection_of_Measuring_Instruments.Shared": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55395;http://localhost:55396"
+    }
+  }
+}

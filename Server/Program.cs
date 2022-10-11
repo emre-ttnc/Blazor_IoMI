@@ -1,4 +1,5 @@
 using Blazored.Modal;
+using Inspection_of_Measuring_Instruments.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 //Blazored.Modal
 builder.Services.AddBlazoredModal();
+
+//Service Registrations
+builder.Services.AddPersistenceServices();
 
 var app = builder.Build();
 

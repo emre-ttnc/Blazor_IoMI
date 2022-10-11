@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inspection_of_Measuring_Ins
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inspection_of_Measuring_Instruments.Shared", "Shared\Inspection_of_Measuring_Instruments.Shared.csproj", "{2BE2A6BC-8ABD-401B-9F4B-3CE032FF9FD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspection_of_Measuring_Instruments.Application", "Inspection_of_Measuring_Instruments.Application\Inspection_of_Measuring_Instruments.Application.csproj", "{8482A94E-1454-455D-9A5B-9B938424F95C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspection_of_Measuring_Instruments.Infrastructure", "Inspection_of_Measuring_Instruments.Infrastructure\Inspection_of_Measuring_Instruments.Infrastructure.csproj", "{865D9DF6-EE79-4125-8C6C-C9D5792BC00F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspection_of_Measuring_Instruments.Persistence", "Inspection_of_Measuring_Instruments.Persistence\Inspection_of_Measuring_Instruments.Persistence.csproj", "{3A5EC649-FCE5-46BA-A2E6-BC4F5D5EB9C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspection_of_Measuring_Instruments.Domain", "Domain\Inspection_of_Measuring_Instruments.Domain.csproj", "{B5616593-073B-4817-A396-B779CD2622EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +35,22 @@ Global
 		{2BE2A6BC-8ABD-401B-9F4B-3CE032FF9FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BE2A6BC-8ABD-401B-9F4B-3CE032FF9FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BE2A6BC-8ABD-401B-9F4B-3CE032FF9FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8482A94E-1454-455D-9A5B-9B938424F95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8482A94E-1454-455D-9A5B-9B938424F95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8482A94E-1454-455D-9A5B-9B938424F95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8482A94E-1454-455D-9A5B-9B938424F95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865D9DF6-EE79-4125-8C6C-C9D5792BC00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865D9DF6-EE79-4125-8C6C-C9D5792BC00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865D9DF6-EE79-4125-8C6C-C9D5792BC00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865D9DF6-EE79-4125-8C6C-C9D5792BC00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A5EC649-FCE5-46BA-A2E6-BC4F5D5EB9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A5EC649-FCE5-46BA-A2E6-BC4F5D5EB9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A5EC649-FCE5-46BA-A2E6-BC4F5D5EB9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A5EC649-FCE5-46BA-A2E6-BC4F5D5EB9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5616593-073B-4817-A396-B779CD2622EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5616593-073B-4817-A396-B779CD2622EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5616593-073B-4817-A396-B779CD2622EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5616593-073B-4817-A396-B779CD2622EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
