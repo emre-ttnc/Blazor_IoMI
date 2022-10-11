@@ -58,6 +58,33 @@ a, .btn-link {
     color: red;
 }
 
+.blazored-typeahead, .blazored-typeahead__controls, .blazored-typeahead__results, .blazored-typeahead__input-mask-wrapper, .blazored-typeahead__input {
+    border: none !important;
+    background-color: var(--bs-dark) !important;
+    color: var(--bs-light) !important;
+}
+.blazored-typeahead__input, .blazored-typeahead__controls, .blazored-typeahead{
+    border-radius: 4px !important;
+}
+    .blazored-typeahead__result {
+        border: none !important;
+        background-color: transparent !important;
+        color: var(--bs-light) !important;
+    }
+
+.blazored-typeahead__result:hover {
+    background-color: rgba(255,255,255, .06) !important;
+}
+
+.blazored-typeahead__selected-item {
+    background-color: rgba(255,255,255, .04) !important;
+}
+
+.blazored-typeahead__active-item {
+    background-color: rgba(255,255,255, .04) !important;
+}
+
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

@@ -1,0 +1,72 @@
+﻿@using Inspection_of_Measuring_Instruments.Shared
+
+@if (weatherForecasts is null)
+{
+    @loadingMessage
+}
+else
+{
+    <BlazoredTypeahead SearchMethod="@SearchSummary"
+                   TValue="WeatherForecast"
+                   TItem="WeatherForecast"
+                   Value="selectedItem"
+                   ValueChanged="OnValueChanged"
+                   ValueExpression="@(() => selectedItem )"
+                   Debounce="500"
+                   ShowDropDownOnFocus="true"
+                   EnableDropDown="true">
+        <SelectedTemplate>
+            @context.Summary
+        </SelectedTemplate>
+        <ResultTemplate>
+            @context.Summary (@context.TemperatureC) (@context.Date)
+        </ResultTemplate>
+        <NotFoundTemplate>
+            Sorry, there weren't any search result.
+        </NotFoundTemplate>
+    </BlazoredTypeahead>
+}
+
+@code {
+    [Inject] HttpClient httpClient { get; set; } = default!;
+
+    [Parameter] public string Value { get; set; } = string.Empty;
+
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    string loadingMessage = "Loading...";
+
+    private WeatherForecast[]? weatherForecasts;
+
+    WeatherForecast selectedItem = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            weatherForecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>("weatherforecast");
+        }
+        catch (Exception)
+        {
+            loadingMessage = "Loading failed.";
+        }
+    }
+
+    async Task<IEnumerable<WeatherForecast>?> SearchSummary(string summary) =>
+        await Task.FromResult(weatherForecasts?.Where(w => w.Summary.ToLower().Contains(summary.ToLower())).ToList());
+
+
+
+    private Task OnValueChanged(WeatherForecast selected)
+    {
+        if (selected is null){
+            selectedItem = new();
+            return ValueChanged.InvokeAsync("");
+        }
+
+        selectedItem = selected;
+        Value = selected.Summary ?? "";
+        return ValueChanged.InvokeAsync(Value);
+
+    }
+}

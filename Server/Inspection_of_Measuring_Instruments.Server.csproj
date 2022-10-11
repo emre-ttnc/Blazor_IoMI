@@ -15,5 +15,9 @@
     <ProjectReference Include="..\Shared\Inspection_of_Measuring_Instruments.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>

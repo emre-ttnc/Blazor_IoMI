@@ -1,0 +1,7 @@
+﻿body {
+}
+
+::deep .blazored-typeahead, ::deep.blazored-typeahead__controls, ::deep.blazored-typeahead__results, .blazored-typeahead__input-mask-wrapper, .blazored-typeahead__input {
+    background-color: var(--bs-dark) !important;
+    color: var(--bs-light) !important;
+}
