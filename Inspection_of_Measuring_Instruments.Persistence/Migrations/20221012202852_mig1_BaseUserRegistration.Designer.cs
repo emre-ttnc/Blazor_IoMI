@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 {
     [DbContext(typeof(IoMIDbContext))]
-    [Migration("20221011223159_mig1_users")]
-    partial class mig1_users
+    [Migration("20221012202852_mig1_BaseUserRegistration")]
+    partial class mig1_BaseUserRegistration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,13 +24,144 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.UserEntities.BaseUserEntity", b =>
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.GasMeterInspection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly?>("InspectionDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("InspectorId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InspectorId");
+
+                    b.ToTable("GasMeterInspections");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.ScaleInspection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly?>("InspectionDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("InspectorId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InspectorId");
+
+                    b.ToTable("ScaleInspections");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InstrumentEntities.GasMeter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("GasMeterInspectionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LastInspectionYear")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MaxFlowRate")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SerialNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TypeOrModel")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserOfInstrumentId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GasMeterInspectionId");
+
+                    b.HasIndex("UserOfInstrumentId");
+
+                    b.ToTable("GasMeters");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InstrumentEntities.Scale", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AccuracyClass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LastInspectionYear")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("MaximumCapacity")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ScaleInspectionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SerialNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TypeOrModel")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserOfInstrumentId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScaleInspectionId");
+
+                    b.HasIndex("UserOfInstrumentId");
+
+                    b.ToTable("Scales");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -100,7 +231,7 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserEntities.UserRole", b =>
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.UserRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -232,9 +363,53 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.GasMeterInspection", b =>
+                {
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", "Inspector")
+                        .WithMany()
+                        .HasForeignKey("InspectorId");
+
+                    b.Navigation("Inspector");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.ScaleInspection", b =>
+                {
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", "Inspector")
+                        .WithMany()
+                        .HasForeignKey("InspectorId");
+
+                    b.Navigation("Inspector");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InstrumentEntities.GasMeter", b =>
+                {
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.GasMeterInspection", null)
+                        .WithMany("GasMeter")
+                        .HasForeignKey("GasMeterInspectionId");
+
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", "UserOfInstrument")
+                        .WithMany()
+                        .HasForeignKey("UserOfInstrumentId");
+
+                    b.Navigation("UserOfInstrument");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InstrumentEntities.Scale", b =>
+                {
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.ScaleInspection", null)
+                        .WithMany("Scales")
+                        .HasForeignKey("ScaleInspectionId");
+
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", "UserOfInstrument")
+                        .WithMany()
+                        .HasForeignKey("UserOfInstrumentId");
+
+                    b.Navigation("UserOfInstrument");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.UserEntities.UserRole", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -243,7 +418,7 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.UserEntities.BaseUserEntity", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -252,7 +427,7 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.UserEntities.BaseUserEntity", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,13 +436,13 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.UserEntities.UserRole", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.UserEntities.BaseUserEntity", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -276,11 +451,21 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.UserEntities.BaseUserEntity", null)
+                    b.HasOne("Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities.BaseUserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.GasMeterInspection", b =>
+                {
+                    b.Navigation("GasMeter");
+                });
+
+            modelBuilder.Entity("Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities.ScaleInspection", b =>
+                {
+                    b.Navigation("Scales");
                 });
 #pragma warning restore 612, 618
         }

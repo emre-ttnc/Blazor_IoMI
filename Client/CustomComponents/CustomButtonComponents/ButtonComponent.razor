@@ -1,6 +1,6 @@
 ﻿@inherits BaseButtonComponent
 
-<button class="d-flex align-items-center btn @(IsSmall ? "btn-sm " : "" ) @(string.IsNullOrEmpty(Color.Trim()) ? "": $"btn-{ (IsOutline ? "outline-" : "")}{Color}")"
+<button class="d-flex justify-content-center align-items-center px-4 btn @(IsSmall ? "btn-sm " : "" ) @(string.IsNullOrEmpty(Color.Trim()) ? "": $"btn-{ (IsOutline ? "outline-" : "")}{Color}")"
         type="submit"
         onclick=@OnClick
         disabled="@IsBusy">

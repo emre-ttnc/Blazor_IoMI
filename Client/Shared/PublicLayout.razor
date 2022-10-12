@@ -1,0 +1,24 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container-fluid px-0 h-100 d-flex flex-column ">
+    <div class="bg-dark d-flex justify-content-center">
+        <div class="container d-flex flex-row justify-content-end p-2">
+            <NavLink class="top-nav-link d-flex align-items-center btn btn-success" href="/register" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="person-add-outline"></ion-icon> Register
+            </NavLink>
+            <hr class="mx-2" />
+            <NavLink class="top-nav-link d-flex align-items-center btn btn-primary" href="/login" Match="NavLinkMatch.All">
+                <ion-icon class="fs-4 me-2" name="person-circle-outline"></ion-icon> Sign in
+            </NavLink>
+        </div>
+    </div>
+
+    <article class="m-0 flex-fill">
+        @Body
+    </article>
+</div>
+
+
+@code {
+
+}

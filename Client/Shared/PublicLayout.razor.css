@@ -1,0 +1,7 @@
+﻿body {
+    height: 100vh;
+}
+
+article {
+    background-color: rgba(var(--bs-dark-rgb), .94);
+}

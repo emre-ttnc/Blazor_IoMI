@@ -1,10 +1,34 @@
-﻿namespace Inspection_of_Measuring_Instruments.Shared.Models.UserModels;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Inspection_of_Measuring_Instruments.Shared.Models.UserModels;
 
 public class BaseUserModel
 {
     public Guid? Id { get; set; }
+
+    [Required]
+    [StringLength(16, ErrorMessage = "Name can be up to 16 and at least 3 characters.", MinimumLength = 3)]
     public string? Name { get; set; }
+
+    [Required]
+    [StringLength(16, ErrorMessage = "Surname can be up to 16 and at least 3 characters.", MinimumLength = 3)]
     public string? Surname { get; set; }
-    public int RegistryCode { get; set; }
+
+    [Required]
+    [StringLength(16, ErrorMessage = "Username can be up to 16 and at least 6 characters.", MinimumLength = 6)]
+    public string? Username { get; set; }
+
+    [Required]
+    [EmailAddress(ErrorMessage = "Invalid format. Please check the email address.")]
+    public string? Email { get; set; }
+
+    [Required]
+    [StringLength(16, ErrorMessage = "Password can be up to 16 and at least 6 characters.", MinimumLength = 6)]
+    [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{6,16}$", ErrorMessage = "Password must contain atleast 1 uppercase, 1 lowercase, 1 special character and a number.")]
+    public string? Password { get; set; }
+
+    [Compare(nameof(Password),ErrorMessage = "Password does not match." )]
+    public string? ConfirmPassword { get; set; }
     public bool IsActive { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿using Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities;
+﻿using Inspection_of_Measuring_Instruments.Domain.Entities.InspectionEntities;
+using Inspection_of_Measuring_Instruments.Domain.Entities.InstrumentEntities;
+using Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,5 +10,9 @@ public class IoMIDbContext : IdentityDbContext<BaseUserEntity, UserRole, string>
 {
 	public IoMIDbContext(DbContextOptions options):base(options){}
 
+	public DbSet<GasMeter> GasMeters { get; set; }
+	public DbSet<Scale> Scales { get; set; }
+	public DbSet<GasMeterInspection> GasMeterInspections { get; set; }
+	public DbSet<ScaleInspection> ScaleInspections { get; set; }
 
 }

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
 {
-    public partial class mig1_users : Migration
+    public partial class mig1_BaseUserRegistration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,6 +33,8 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                     Surname = table.Column<string>(type: "text", nullable: true),
                     RegistryCode = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    CompanyName = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -159,6 +161,103 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "GasMeterInspections",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    InspectionDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    InspectorId = table.Column<string>(type: "text", nullable: true),
+                    IsValid = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GasMeterInspections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GasMeterInspections_AspNetUsers_InspectorId",
+                        column: x => x.InspectorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ScaleInspections",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    InspectionDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    InspectorId = table.Column<string>(type: "text", nullable: true),
+                    IsValid = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScaleInspections", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ScaleInspections_AspNetUsers_InspectorId",
+                        column: x => x.InspectorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GasMeters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    MaxFlowRate = table.Column<string>(type: "text", nullable: true),
+                    GasMeterInspectionId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Brand = table.Column<string>(type: "text", nullable: true),
+                    TypeOrModel = table.Column<string>(type: "text", nullable: true),
+                    SerialNumber = table.Column<string>(type: "text", nullable: true),
+                    UserOfInstrumentId = table.Column<string>(type: "text", nullable: true),
+                    LastInspectionYear = table.Column<int>(type: "integer", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GasMeters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GasMeters_AspNetUsers_UserOfInstrumentId",
+                        column: x => x.UserOfInstrumentId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_GasMeters_GasMeterInspections_GasMeterInspectionId",
+                        column: x => x.GasMeterInspectionId,
+                        principalTable: "GasMeterInspections",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scales",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    MaximumCapacity = table.Column<string>(type: "text", nullable: true),
+                    AccuracyClass = table.Column<string>(type: "text", nullable: true),
+                    ScaleInspectionId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Brand = table.Column<string>(type: "text", nullable: true),
+                    TypeOrModel = table.Column<string>(type: "text", nullable: true),
+                    SerialNumber = table.Column<string>(type: "text", nullable: true),
+                    UserOfInstrumentId = table.Column<string>(type: "text", nullable: true),
+                    LastInspectionYear = table.Column<int>(type: "integer", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scales", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Scales_AspNetUsers_UserOfInstrumentId",
+                        column: x => x.UserOfInstrumentId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Scales_ScaleInspections_ScaleInspectionId",
+                        column: x => x.ScaleInspectionId,
+                        principalTable: "ScaleInspections",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -195,6 +294,36 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GasMeterInspections_InspectorId",
+                table: "GasMeterInspections",
+                column: "InspectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GasMeters_GasMeterInspectionId",
+                table: "GasMeters",
+                column: "GasMeterInspectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GasMeters_UserOfInstrumentId",
+                table: "GasMeters",
+                column: "UserOfInstrumentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScaleInspections_InspectorId",
+                table: "ScaleInspections",
+                column: "InspectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scales_ScaleInspectionId",
+                table: "Scales",
+                column: "ScaleInspectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scales_UserOfInstrumentId",
+                table: "Scales",
+                column: "UserOfInstrumentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -215,7 +344,19 @@ namespace Inspection_of_Measuring_Instruments.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "GasMeters");
+
+            migrationBuilder.DropTable(
+                name: "Scales");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "GasMeterInspections");
+
+            migrationBuilder.DropTable(
+                name: "ScaleInspections");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

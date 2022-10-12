@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Inspection_of_Measuring_Instruments.Domain.csproj" />
     <ProjectReference Include="..\Inspection_of_Measuring_Instruments.Application\Inspection_of_Measuring_Instruments.Application.csproj" />
   </ItemGroup>
 

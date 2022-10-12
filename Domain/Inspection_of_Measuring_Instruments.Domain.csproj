@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\InstrumentEntities\" />
-    <Folder Include="Entities\InspectionEntities\" />
-    <Folder Include="Entities\ServiceEntites\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 

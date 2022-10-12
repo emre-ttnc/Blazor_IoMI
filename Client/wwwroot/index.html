@@ -15,8 +15,13 @@
     <link href="_content/Blazored.Typeahead/blazored-typeahead.css" rel="stylesheet" />
 </head>
 
-<body>
-    <div id="app">Loading...</div>
+<body class="vh-100">
+    <div id="app" class="h-100">
+        <div class="vh-100 vw-100 d-flex flex-column align-items-center justify-content-center bg-dark text-light gap-3">
+            <div class="spinner-border"></div>
+            <div class="fs-1">Please wait...</div> 
+        </div> 
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
