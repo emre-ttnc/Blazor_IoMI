@@ -55,12 +55,13 @@
     private UserOfInstrumentModel User = new() { Id = Guid.NewGuid() };
     private bool BtnIsBusy = false;
 
-    private async void UserValidated()
+    private async Task UserValidated()
     {
         BtnIsBusy = true;
         ServerResponse<bool> response = await Http.PostAndGetServerResponseAsync<bool, UserOfInstrumentModel>("/user/register", User);
         await Modal.ShowMessageModalAsync("Task completed.", response.Success ? $"We sent an email to {User.Email}." : response.ErrorMessage ?? "Unknown error.");
-        BtnIsBusy = !response.Success;
+        User = new() { Id = Guid.NewGuid() };
+        BtnIsBusy = false;
         if (response.Success) NavManager.NavigateTo("/login");
     }
 }
