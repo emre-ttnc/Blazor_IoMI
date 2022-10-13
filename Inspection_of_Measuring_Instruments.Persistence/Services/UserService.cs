@@ -1,4 +1,5 @@
-﻿using Inspection_of_Measuring_Instruments.Application.Services;
+﻿using Inspection_of_Measuring_Instruments.Application.DTOs.UserDTOs;
+using Inspection_of_Measuring_Instruments.Application.Services;
 using Inspection_of_Measuring_Instruments.Domain.Entities.UserEntities;
 using Inspection_of_Measuring_Instruments.Shared.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
@@ -19,8 +20,12 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public async Task<bool> CreateUserAsync(UserOfInstrumentModel user)
+    public async Task<CreateUserResponseDTO> CreateUserAsync(UserOfInstrumentModel user)
     {
+        BaseUserEntity? duplicateEmailUser = await _userManager.FindByEmailAsync(user.Email);
+        if (duplicateEmailUser is not null)
+            return new CreateUserResponseDTO() { ErrorMessage = "An account with this email already exists.", IsSuccess = false };
+
         IdentityResult result = await _userManager.CreateAsync(new BaseUserEntity()
         {
             Id = user.Id.ToString() ?? Guid.NewGuid().ToString(),
@@ -33,7 +38,9 @@ public class UserService : IUserService
             CompanyName = user.CompanyName
 
         }, user.Password);
-        return result.Succeeded;
+        if (!result.Succeeded && result.Errors.Any())
+            return new CreateUserResponseDTO() { ErrorMessage = result.Errors?.FirstOrDefault()?.Code, IsSuccess = false };
+        return new CreateUserResponseDTO() { IsSuccess = true };
     }
 
     public bool DeleteInspector(Guid id)

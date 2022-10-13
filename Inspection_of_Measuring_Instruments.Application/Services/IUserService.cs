@@ -1,10 +1,11 @@
-﻿using Inspection_of_Measuring_Instruments.Shared.Models.UserModels;
+﻿using Inspection_of_Measuring_Instruments.Application.DTOs.UserDTOs;
+using Inspection_of_Measuring_Instruments.Shared.Models.UserModels;
 
 namespace Inspection_of_Measuring_Instruments.Application.Services;
 
 public interface IUserService
 {
-    Task<bool> CreateUserAsync(UserOfInstrumentModel user);
+    Task<CreateUserResponseDTO> CreateUserAsync(UserOfInstrumentModel user);
     Task<bool> UpdateUserAsync(UserOfInstrumentModel user);
     bool DeleteUser(UserOfInstrumentModel user);
     Task<bool> DeleteUserAsync(Guid id);

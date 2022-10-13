@@ -12,30 +12,35 @@
         <div class="card-body p-4">
             <EditForm Model="@User" OnValidSubmit="@UserValidated">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
                 <div class="mb-3">
                     <label for="username">Username: </label>
                     <InputText class="form-control" id="username" @bind-Value="@User.Username" />
+                    <ValidationMessage For="() => User.Username" />
                 </div>
                 <div class="mb-3">
                     <label for="name">Name: </label>
                     <InputText class="form-control" id="name" @bind-Value="@User.Name" />
+                    <ValidationMessage For="() => User.Name" />
                 </div>
                 <div class="mb-3">
                     <label for="surname">Surname: </label>
                     <InputText class="form-control" id="surname" @bind-Value="@User.Surname" />
+                    <ValidationMessage For="() => User.Surname" />
                 </div>
                 <div class="mb-3">
                     <label for="email">Email Address</label>
                     <InputText class="form-control" id="email" @bind-Value="@User.Email" />
+                    <ValidationMessage For="() => User.Email" />
                 </div>
                 <div class="mb-3">
                     <label for="password">Password: </label>
                     <InputText class="form-control" type="password" id="password" @bind-Value="@User.Password" />
+                    <ValidationMessage For="() => User.Password" />
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword">Confirm Password:</label>
                     <InputText class="form-control" type="password" id="confirmPassword" @bind-Value="@User.ConfirmPassword" />
+                    <ValidationMessage For="() => User.ConfirmPassword" />
                 </div>
                 <div class="d-flex justify-content-center">
                     <ButtonComponent Caption="Register" Color="primary" IsBusy="@BtnIsBusy" Icon="send-outline"></ButtonComponent>
@@ -53,11 +58,9 @@
     private async void UserValidated()
     {
         BtnIsBusy = true;
-        HttpResponseMessage response = await Http.PostAsJsonAsync<UserOfInstrumentModel>("/user/register", User);
-        if (response.IsSuccessStatusCode)
-            await Modal.ShowMessageModalAsync("Task completed.", $"We sent an email to {User.Email}.");
-        else return;
-        BtnIsBusy = false;
-        NavManager.NavigateTo("/login");
+        ServerResponse<bool> response = await Http.PostAndGetServerResponseAsync<bool, UserOfInstrumentModel>("/user/register", User);
+        await Modal.ShowMessageModalAsync("Task completed.", response.Success ? $"We sent an email to {User.Email}." : response.ErrorMessage ?? "Unknown error.");
+        BtnIsBusy = !response.Success;
+        if (response.Success) NavManager.NavigateTo("/login");
     }
 }

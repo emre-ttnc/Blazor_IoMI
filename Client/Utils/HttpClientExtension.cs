@@ -16,12 +16,4 @@ public static class HttpClientExtension
         }
         return new ServerResponse<TResult>() { Success = false, ErrorMessage = "Something went wrong" };
     }
-
-    public async static Task<bool> PostAndGetBoolAsync<TValue>(this HttpClient httpClient, string url, TValue value)
-    {
-        HttpResponseMessage? response = await httpClient.PostAsJsonAsync(url, value);
-        if (response is not null && response.IsSuccessStatusCode)
-            return true;
-        return false;
-    }
 }

@@ -14,7 +14,14 @@
     </div>
 
     <article class="m-0 flex-fill">
-        @Body
+        <ErrorBoundary Context="ex">
+            <ChildContent>
+                @Body
+            </ChildContent>
+            <ErrorContent>
+                <p>this is an error. @ex.Message </p>
+            </ErrorContent>
+        </ErrorBoundary>
     </article>
 </div>
 
